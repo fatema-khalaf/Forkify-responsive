@@ -11,15 +11,17 @@ export const state = {
   },
   bookmarks: [],
 };
-
 const createRecipeObject = function (data) {
-  const { recipe } = data.data;
   // this to reformat the respons object
+  const { recipe } = data.data;
+  // console.log(recipe.image_url);
   const img = recipe.image_url;
   //console.log(img.substr(0, 4) + 's');
   //console.log(img.substr(4));
   const imgUrl = img.substr(0, 4) + 's' + img.substr(4);
+  // console.log(imgUrl);
   return {
+    bookmarked: false,
     id: recipe.id,
     title: recipe.title,
     publisher: recipe.publisher,
@@ -34,9 +36,11 @@ export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}${id}`);
     state.recipe = createRecipeObject(data);
-    if (state.bookmarks.some(bookmark => bookmark.id === id))
+    console.log(state.recipe.bookmarked);
+    if (state.bookmarks.some(bookmark => bookmark.id === id)) {
+      console.log(state.recipe);
       state.recipe.bookmarked = true;
-    else state.recipe, (bookmarked = false);
+    } else state.recipe.bookmarked = false;
   } catch (err) {
     throw err;
   }
@@ -46,7 +50,7 @@ export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
     const data = await getJSON(`${API_URL}?search=${query}`);
-    // console.log(data);
+    //console.log(data);
     state.search.results = data.data.recipes.map(rec => {
       return {
         id: rec.id,
@@ -91,12 +95,6 @@ export const addBookMar = function (recipe) {
 };
 export const deleteBookmark = function (id) {
   // Delete bookmark
-  const index = state.bookmarks.findIndex(el => el.id === id);
-  state.bookmarks.splice(index, 1);
-  // Mark current recipe as unbookmark
-  if (id === state.recipe.id) state.recipe.bookmarked = false;
-
-  persistBookmarks();
 };
 // Video 304
 const init = function () {
@@ -137,5 +135,5 @@ export const uploadRecipe = async function (newRecipe) {
   };
   //const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
   //state.recipe = createRecipeObject(recipe);
-  console.log(recipe);
+  // console.log(recipe);
 };
