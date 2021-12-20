@@ -14,13 +14,17 @@ export const state = {
 
 const createRecipeObject = function (data) {
   // this to reformat the respons object
+  const img = recipe.image_url;
+  //console.log(img.substr(0, 4) + 's');
+  //console.log(img.substr(4));
+  const imgUrl = img.substr(0, 4) + 's' + img.substr(4);
   const { recipe } = data.data;
   return {
     id: recipe.id,
     title: recipe.title,
     publisher: recipe.publisher,
     sourceURL: recipe.source_url,
-    image: recipe.image_url,
+    image: imgUrl,
     servings: recipe.servings,
     cookingTime: recipe.cooking_time,
     ingredients: recipe.ingredients,
