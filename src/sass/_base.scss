@@ -14,7 +14,7 @@ $gradient: linear-gradient(to right bottom, $color-grad-1, $color-grad-2);
 $bp-large: 78.15em; // 1250px
 $bp-medium: 61.25em; // 980px
 $bp-small: 46.875em; // 600px
-$bp-smallest: 31.25em; // 500px
+$bp-smallest: 28.125em; // 450px
 
 * {
   margin: 0;
@@ -69,7 +69,7 @@ body {
     border-radius: 0;
   }
   @media only screen and (max-width: $bp-small) {
-    grid-template-rows: 10rem min-content min-content;
+    grid-template-rows: min-content min-content min-content;
     grid-template-areas:
       'head head'
       'list list'

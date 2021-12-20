@@ -19,6 +19,9 @@
 
   & > *:first-child {
     margin-right: 1rem;
+    @media only screen and (max-width: $bp-smallest) {
+      margin-right: 0;
+    }
   }
 }
 
@@ -28,7 +31,9 @@
   padding: 1.5rem 4rem;
   font-size: 1.5rem;
   font-weight: 600;
-
+  @media only screen and (max-width: $bp-smallest) {
+    padding: 1.5rem 1.5rem;
+  }
   svg {
     height: 2.25rem;
     width: 2.25rem;
